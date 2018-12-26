@@ -8,3 +8,4 @@ rollup.config.js
 .huskyrc
 .eslintrc
 .babelrc
+.travis.yml
