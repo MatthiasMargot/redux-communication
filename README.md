@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/redux-communication.svg)](https://badge.fury.io/js/redux-communication)
 ![](https://travis-ci.org/MatthiasMargot/redux-communication.svg?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/MatthiasMargot/redux-communication/badge.svg?targetFile=package.json)](https://snyk.io/test/github/MatthiasMargot/redux-communication?targetFile=package.json)
 
