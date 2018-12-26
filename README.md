@@ -1,3 +1,5 @@
+![](https://travis-ci.org/MatthiasMargot/redux-communication.svg?branch=master)
+
 # Redux-Communication
 
 Redux-Communication is a request communication-state tracker that's pluggable into `redux`.
