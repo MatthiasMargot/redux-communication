@@ -1,0 +1,10 @@
+src/
+coverage/
+
+config.js
+jest.config.js
+rollup.config.js
+
+.huskyrc
+.eslintrc
+.babelrc

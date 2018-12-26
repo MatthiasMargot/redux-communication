@@ -1,0 +1,53 @@
+{
+  "name": "redux-communication",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Data fetching communication-state handler pluggable into redux.",
+  "keywords": [
+    "error",
+    "fetching",
+    "flux",
+    "functional",
+    "loading",
+    "middleware",
+    "redux",
+    "redux-middleware",
+    "reducer",
+    "response",
+    "request",
+    "selector"
+  ],
+  "files": [ "build/" ],
+  "author": "'Matthias Margot <matthiasmargot@hotmail.com>",
+  "main": "./build/redux-communication.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatthiasMargot/redux-communication"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint ./src",
+    "build": "rollup --config"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "eslint": "^5.11.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "husky": "^1.2.1",
+    "jest": "^23.6.0",
+    "redux": "^4.0.1",
+    "rollup": "^0.68.2",
+    "rollup-plugin-babel": "^4.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {}
+}
