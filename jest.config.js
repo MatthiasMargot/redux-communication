@@ -1,7 +1,16 @@
+/* eslint-disable */
+
 module.exports = {
-  collectCoverage:   true,
-  coverageReporters: [ 'json', 'html' ],
   transform:         {
     '^.+\\.js?$': 'babel-jest',
   },
+  coverageDirectory: './coverage/',
+  collectCoverage:   true,
+  coverageReporters: [
+    'json',
+    'html',
+    'json-summary',
+    'text',
+    'lcov',
+  ],
 }

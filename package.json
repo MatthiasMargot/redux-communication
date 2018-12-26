@@ -29,7 +29,8 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "lint": "eslint ./src",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "codecov": "jest && codecov"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
