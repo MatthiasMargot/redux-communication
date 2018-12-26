@@ -1,12 +1,14 @@
+# Redux-Communication
+
+Request communication-state tracker that's pluggable into `redux`.
+
 [![npm version](https://badge.fury.io/js/redux-communication.svg)](https://badge.fury.io/js/redux-communication)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f89bdda12dd3c6fb77b9/maintainability)](https://codeclimate.com/github/MatthiasMargot/redux-communication/maintainability)
 ![](https://codecov.io/gh/MatthiasMargot/redux-communication/branch/master/graph/badge.svg)
 ![](https://travis-ci.org/MatthiasMargot/redux-communication.svg?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/MatthiasMargot/redux-communication/badge.svg?targetFile=package.json)](https://snyk.io/test/github/MatthiasMargot/redux-communication?targetFile=package.json)
 
-# Redux-Communication
-
-Redux-Communication is a request communication-state tracker that's pluggable into `redux`.
+---
 
 Definition of *communication-state* in the scope of this library:
 
@@ -36,6 +38,8 @@ By having all of these automatically generated and handled by the reducer-middle
   
 * [Does this cover my use-case?](#does-this-cover-my-use-case?)
 
+---
+
 ## Installation
 Install from the `npm` registry
 ```sh
@@ -63,6 +67,8 @@ const store = createStore(
 )
 ```
 
+---
+
 ## Usage
 
 ### Creating a request
@@ -89,6 +95,7 @@ The actual request-function requires an `id` argument in this example, to make s
 store.dispatch(requestData(42))
 ```
 
+---
 
 ### Listening for request-actions yourself
 
@@ -121,7 +128,9 @@ const dataReducer = (state, action) => {
 }
 
 ```
+
 ---
+
 ## API
 
 ### createCommunication:
@@ -205,8 +214,12 @@ Because your use-case might not be covered by simply storing the error/response 
 
 Nothing is hidden away, everything passing through the communication-middleware is exposed and you can listen for it too!
 
+---
+
 ## Author
 Matthias Margot <matthiasmargot@hotmail.com>
+
+---
 
 ## License
 MIT
