@@ -17,7 +17,7 @@ const handleFailed = (state, { payload, meta }) => ({
   },
 })
 
-const handleSucceeded = (state, { payload, meta}) => ({
+const handleSucceeded = (state, { payload, meta }) => ({
   ...state,
   [ meta.namespace ]: {
     fetching: false,
