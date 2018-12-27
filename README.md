@@ -36,7 +36,7 @@ By having all of these automatically generated and handled by the reducer-middle
   * [Communication](#communication)
   
   
-* [Does this cover my use-case?](#does-this-cover-my-use-case?)
+* [Does this cover my use-case?](#does-this-cover-my-use-case)
 
 ---
 
