@@ -152,24 +152,34 @@ Hopefully this is self explantory, see [Installation](#installation) for guide o
   requestActionTypes,
 ]
 ```
-`namespace: string`
+#### `namespace: string`
+
 Used to create name-spaced action-types of this format `@@communication [ namespace ] REQUESTED`
 
-`request: (...args) => Promise`
+#### `request: (...args) => Promise`
+
 Returns a promise
+
 will receive whatever you pass into the action-creator returned from `createRequest`
 
-`requestActionCreator: (...args) => Action`
+#### `requestActionCreator: (...args) => Action`
+
 Action-Creator
+
 returns a redux-action
+
 the arguments you pass into this are passed to the `request` function (2nd argument of `createRequest`)
+
 [Redux Docs: Action Creators](https://redux.js.org/recipes/reducing-boilerplate#action-creators)
 
-`requestCommunicationSelector: (state) => Communication`
+#### `requestCommunicationSelector: (state) => Communication`
+
 Selector function, returns a [Communication](#communication) object
+
 [Redux Docs: Selectors](https://redux.js.org/introduction/learning-resources#selectors)
 
-`requestActionTypes: RequestActionTypes`
+#### `requestActionTypes: RequestActionTypes`
+
 [RequestActionTypes](#requestactiontypes)
 
 ---
@@ -194,13 +204,16 @@ The action-types a given request uses to track its communication-state.
   response: any
 }
 ```
-`fetching: boolean`
+#### `fetching: boolean`
+
 The fetching state of a given request-communication
 
-`error: any`
+#### `error: any`
+
 The error your promise might throw (the promise that is returned from the `request` argument in `createRequest`)
 
-`response: any`
+#### `response: any`
+
 The value your promise might resolve to (the promise that is returned from the `request` argument in `createRequest`)
 
 ---
