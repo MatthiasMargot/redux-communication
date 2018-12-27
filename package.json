@@ -1,6 +1,6 @@
 {
   "name": "redux-communication",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "Data fetching communication-state handler pluggable into redux.",
   "keywords": [
@@ -30,7 +30,9 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint ./src",
     "build": "rollup --config",
-    "codecov": "jest && codecov"
+    "codecov": "jest && codecov",
+    "prepare": "npm run build && npm run lint && npm run test",
+    "prepublish": "npm run prepare"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
