@@ -232,10 +232,5 @@ Nothing is hidden away, everything passing through the communication-middleware 
 
 ---
 
-## Author
-Matthias Margot <matthiasmargot@hotmail.com>
-
----
-
 ## License
-MIT
+MIT @ Matthias Margot <matthiasmargot@hotmail.com>
