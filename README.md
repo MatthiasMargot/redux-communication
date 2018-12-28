@@ -28,6 +28,8 @@ By having all of these automatically generated and handled by the reducer-middle
 * [Installation](#installation)
 * [Usage](#usage)
   * [Creating a request](#creating-a-request)
+  * [Selecting the Communication for a given request from your store-state](#selecting-the-communicationcommunication-for-a-given-request-from-your-store-state)
+  * [Imperatively handling request success/error with Promise chaining](#imperatively-handling-request-successerror-with-promise-chaining)
   * [Listening for request-actions yourself](#listening-for-request-actions-yourself)
 * [API](#api)
   * [createCommunication](#createcommunication)
@@ -77,7 +79,6 @@ Use [createRequest](#createrequest) to create the following tuple
 [ requestActionCreator, requestCommunicationSelector, requestActionTypes ]
 ```
 
-
 ```js
 import { createRequest } from 'redux-communication'
 
@@ -98,6 +99,68 @@ In this example `requestData` is an action-creator that will trigger the actual 
 The actual request-function requires an `id` argument in this example, to make sure that the fetch-caller function receives that argument call & dispatch the `requestData` action-creator with that argument as follows:
 ```js
 store.dispatch(requestData(42))
+```
+Or in [react-redux](https://www.npmjs.com/package/react-redux)' `connect` `mapDispatchToProps` callback:
+
+```js
+export default connect(null, { requestData })(Component)
+``` 
+
+---
+
+### Selecting the [Communication](#communication) for a given request from your store-state
+
+The second element in the tuple returned from [createRequest](#createrequest) is a [selector](https://redux.js.org/introduction/learning-resources#selectors) that returns the [Communication](#communication) object for the created request.
+```js
+import { createRequest } from 'redux-communication'
+
+const dataRequest = createRequest(
+  'data',
+  () => fetch(endpoint),
+)
+
+const [ , dataCommunicationSelector ] = dataRequest
+
+```
+Use it to retrieve the the communication-state for the associated request.
+```js
+const dataCommunication = dataCommunicationSelector(store.getState())
+
+const { fetching, error, response } = dataCommunication
+```
+Or in [react-redux](https://www.npmjs.com/package/react-redux)' `connect` `mapStateToProps` callback:
+
+```js
+const mapStateToProps = state => ({ dataCommunication: dataCommunicationSelector(state) })
+
+export default connect(mapStateToProps)(Component)
+``` 
+
+---
+
+### Imperatively handling request success/error with Promise chaining
+
+If having only the [Communication](#communication) object available to you via the `communicationSelector` is not enough to handle a particular request and you would prefer to trigger some imperative action either or completion or failure of any given request you can do so by hooking into the promise returned from the call to dispatch:
+
+```js
+const dataRequest = createRequest(
+  'data',
+  () => fetch(endpoint),
+)
+
+const [ requestData ] = dataRequest
+
+store.dispatch(requestData())
+  .then(/* handle success imperatively */)
+  .catch(/* handle error imperatively */)
+```
+Or from inside a react-component (assuming dispatch-wrapped action-creator injected through `react-redux-connect` props):
+```js
+componentDidMount () {
+  this.props.requestData()
+    .then(/* handle success imperatively */)
+    .catch(/* handle error imperatively */)
+}
 ```
 
 ---
@@ -143,7 +206,7 @@ const dataReducer = (state, action) => {
   requestReducer,
 ]
 ```
-Hopefully this is self explantory, see [Installation](#installation) for guide of usage of this.
+Should be self-explanatory, see [Installation](#installation) guide for usage of this.
 
 ---
 
@@ -163,7 +226,7 @@ Used to create name-spaced action-types of this format `@@communication [ namesp
 
 Returns a promise
 
-will receive whatever you pass into the action-creator returned from `createRequest`
+will receive whatever you pass into the action-creator returned from [createRequest](#createrequest)
 
 #### `requestActionCreator: (...args) => Action`
 
@@ -171,7 +234,7 @@ Action-Creator
 
 returns a redux-action
 
-the arguments you pass into this are passed to the `request` function (2nd argument of `createRequest`)
+the arguments you pass into this are passed to the `request` function (2nd argument of [createRequest](#createrequest))
 
 [Redux Docs: Action Creators](https://redux.js.org/recipes/reducing-boilerplate#action-creators)
 
@@ -213,11 +276,11 @@ The fetching state of a given request-communication
 
 #### `error: any`
 
-The error your promise might throw (the promise that is returned from the `request` argument in `createRequest`)
+The error your promise might throw (the promise that is returned from the `request` argument in [createRequest](#createrequest))
 
 #### `response: any`
 
-The value your promise might resolve to (the promise that is returned from the `request` argument in `createRequest`)
+The value your promise might resolve to (the promise that is returned from the `request` argument in [createRequest](#createrequest))
 
 ---
 
