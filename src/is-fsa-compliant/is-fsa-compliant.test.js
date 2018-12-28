@@ -35,7 +35,7 @@ describe('isFsaCompliant', () => {
     expect(test).toBe(false)
   })
 
-  it('returns false if the \'meta\' prop expists but is not of type object', () => {
+  it('returns false if the \'meta\' prop exists but is not of type object', () => {
     const test = isFsaCompliant({
       ...fsaCompliant,
       meta: 'notAnObject',
