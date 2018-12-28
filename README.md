@@ -72,7 +72,12 @@ const store = createStore(
 ## Usage
 
 ### Creating a request
-Use [createRequest](#createrequest) to create an [ actionCreator, communicationSelector ] tuple
+Use [createRequest](#createrequest) to create the following tuple
+```
+[ requestActionCreator, requestCommunicationSelector, requestActionTypes ]
+```
+
+
 ```js
 import { createRequest } from 'redux-communication'
 
@@ -111,11 +116,9 @@ const dataRequest = createRequest(
 
 const [ , , dataRequestActionTypes ] = dataRequest
 
-const { succeeded } = dataRequestActionTypes
-
 const dataReducer = (state, action) => {
   switch (action.type) {
-    case [ succeeded ]: {
+    case dataRequestActionTypes.succeeded: {
       const { response } = action.payload
       /*
        * react to the data-request having succeeded you
