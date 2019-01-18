@@ -1,4 +1,4 @@
-import isRequestAction                                                     from '../is-request-action'
+import { isRequestAction }                                                 from '../is-request-action'
 import { createRequestSucceededActionType, createRequestFailedActionType } from '../create-communication-action-type'
 import overwriteDeep                                                       from '../overwrite-deep/overwrite-deep'
 import { REQUEST_FAILED, REQUEST_SUCCEEDED }                               from '../action-types'

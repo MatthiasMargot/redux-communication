@@ -1,1 +1,1 @@
-export { default } from './is-request-action'
+export * from './is-request-action'

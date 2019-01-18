@@ -1,6 +1,7 @@
-import isFsaCompliant from '../is-fsa-compliant'
+import isFsaCompliant                        from '../is-fsa-compliant'
+import { REQUEST_FAILED, REQUEST_SUCCEEDED } from '../action-types'
 
-const isRequestAction = action => {
+export const isRequestAction = action => {
   const { meta } = action
 
   return Boolean(
@@ -11,4 +12,8 @@ const isRequestAction = action => {
   )
 }
 
-export default isRequestAction
+export const isRequestFailedAction = action =>
+  action.meta.requestLifecycleType === REQUEST_FAILED
+
+export const isRequestSucceededAction = action =>
+  action.meta.requestLifecycleType === REQUEST_SUCCEEDED
