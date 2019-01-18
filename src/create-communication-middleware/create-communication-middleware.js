@@ -1,43 +1,59 @@
-import createAction                                                        from '../create-action'
 import isRequestAction                                                     from '../is-request-action'
-import {
-  createRequestSucceededActionType,
-  createRequestFailedActionType,
-} from '../create-communication-action-type'
+import { createRequestSucceededActionType, createRequestFailedActionType } from '../create-communication-action-type'
+import overwriteDeep                                                       from '../overwrite-deep/overwrite-deep'
+import { REQUEST_FAILED, REQUEST_SUCCEEDED }                               from '../action-types'
 
-const createCommunicationMiddleware = () => ({ dispatch }) => next => action => {
+const createCommunicationMiddleware = () => store => next => action => {
   next(action)
 
   if (!isRequestAction(action)) return
 
-  const { meta, payload } = action
+  const {
+    meta,
+    payload = {},
+  } = action
 
-  const { namespace } = meta
+  const {
+    namespace,
+    request,
+    partialSuccessAction = {},
+    partialFailureAction = {},
+  } = meta
 
-  const { request } = meta
-
-  const args = (payload && payload.requestArgs) || []
+  const args = payload.requestArgs || []
 
   return request(...args)
     .then(response => {
-      dispatch(
-        createAction(
-          createRequestSucceededActionType(namespace),
-          { response },
-          { namespace },
-        ),
+      const successAction = overwriteDeep(
+        {
+          type:    createRequestSucceededActionType(namespace),
+          payload: { response },
+          meta:    {
+            namespace,
+            requestLifecycleType: REQUEST_SUCCEEDED,
+          },
+        },
+        partialSuccessAction,
       )
+
+      store.dispatch(successAction)
 
       return response
     })
     .catch(error => {
-      dispatch(
-        createAction(
-          createRequestFailedActionType(namespace),
-          { error },
-          { namespace },
-        ),
+      const failureAction = overwriteDeep(
+        {
+          type:    createRequestFailedActionType(namespace),
+          payload: { error },
+          meta:    {
+            namespace,
+            requestLifecycleType: REQUEST_FAILED,
+          },
+        },
+        partialFailureAction,
       )
+
+      store.dispatch(failureAction)
 
       throw error
     })

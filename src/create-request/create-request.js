@@ -1,40 +1,55 @@
-import createAction                from '../create-action'
-import createCommunicationSelector from '../create-communication-selector'
-import {
+import createCommunicationSelector          from '../create-communication-selector'
+import * as communicationActionTypeCreators from '../create-communication-action-type'
+import overwriteDeep                        from '../overwrite-deep/overwrite-deep'
+import { REQUESTED }                        from '../action-types'
+
+const {
   createRequestedActionType,
   createRequestFailedActionType,
   createRequestSucceededActionType,
-}                                  from '../create-communication-action-type'
+} = communicationActionTypeCreators
 
-const createRequest = (namespace, request) => {
-  const requestActionType = createRequestedActionType(namespace)
+const createRequest = (
+  namespace,
+  request,
+  partialActions,
+) => {
+  const {
+    init = {},
+    failure = {},
+    success = {},
+  } = partialActions || {}
 
-  const requestSucceededActionType = createRequestSucceededActionType(namespace)
+  const requestMeta = {
+    request,
+    namespace,
+    partialSuccess:       success,
+    partialFailure:       failure,
+    requestLifecycleType: REQUESTED,
+  }
 
-  const requestFailedActionType = createRequestFailedActionType(namespace)
+  const requestActionCreator = (...requestArgs) => {
+    const initAction = {
+      type:    createRequestedActionType(namespace),
+      payload: { requestArgs },
+      meta:    requestMeta,
+    }
 
-  const requestMeta = { request, namespace }
-
-  const requestActionCreator = (...requestArgs) =>
-    createAction(
-      requestActionType,
-      { requestArgs },
-      requestMeta,
+    return overwriteDeep(
+      initAction,
+      init,
     )
+  }
 
   const requestCommunicationSelector = createCommunicationSelector(namespace)
 
   const actionTypes = {
-    requested: requestActionType,
-    succeeded: requestSucceededActionType,
-    failed:    requestFailedActionType,
+    requested: init.type || createRequestedActionType(namespace),
+    succeeded: success.type || createRequestSucceededActionType(namespace),
+    failed:    failure.type || createRequestFailedActionType(namespace),
   }
 
-  return [
-    requestActionCreator,
-    requestCommunicationSelector,
-    actionTypes,
-  ]
+  return [ requestActionCreator, requestCommunicationSelector, actionTypes ]
 }
 
 export default createRequest

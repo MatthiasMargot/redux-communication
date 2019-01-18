@@ -1,9 +1,10 @@
-import createCommunicationReducer from './create-communication-reducer'
+import createCommunicationReducer                       from './create-communication-reducer'
 import {
   createRequestedActionType,
   createRequestFailedActionType,
   createRequestSucceededActionType,
-}                                 from '../create-communication-action-type'
+}                                                       from '../create-communication-action-type'
+import { REQUEST_FAILED, REQUEST_SUCCEEDED, REQUESTED } from '../action-types'
 
 const namespace = 'namespace'
 
@@ -12,15 +13,15 @@ describe('createCommunicationReducer', () => {
 
   describe('the returned communicationReducer', () => {
     it('returns an empty object if no state was passed', () => {
-      const action = { type: 'no match' }
+      const action = {}
 
       expect(reducer(undefined, action)).toEqual({})
     })
 
-    it('returns the passed state on no action-type match', () => {
+    it('returns the passed state if the coming through action is not a request-action', () => {
       const state = { foo: 'bar' }
 
-      const action = { type: 'no match' }
+      const action = {}
 
       expect(reducer(state, action)).toEqual(state)
     })
@@ -28,7 +29,10 @@ describe('createCommunicationReducer', () => {
     it('handles request initiation', () => {
       const action = {
         type: createRequestedActionType(namespace),
-        meta: { namespace },
+        meta: {
+          namespace,
+          requestLifecycleType: REQUESTED,
+        },
       }
 
       const initial = {
@@ -61,7 +65,10 @@ describe('createCommunicationReducer', () => {
       const action = {
         type:    createRequestSucceededActionType(namespace),
         payload: { response },
-        meta:    { namespace },
+        meta:    {
+          namespace,
+          requestLifecycleType: REQUEST_SUCCEEDED,
+        },
       }
 
       const expectedState = {
@@ -88,7 +95,10 @@ describe('createCommunicationReducer', () => {
       const action = {
         type:    createRequestFailedActionType(namespace),
         payload: { error },
-        meta:    { namespace },
+        meta:    {
+          namespace,
+          requestLifecycleType: REQUEST_FAILED,
+        },
       }
 
       const expectedState = {

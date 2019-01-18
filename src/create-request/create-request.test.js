@@ -21,4 +21,26 @@ describe('createRequest()', () => {
       expect(isFsaCompliant(actionCreator({}))).toBe(true)
     })
   })
+
+  it('lets you overwrite the used action-types', () => {
+    const [ , , actionTypes ] = createRequest(
+      request,
+      namespace,
+      {
+        init:    { type: 'requested' },
+        failure: { type: 'failed' },
+        success: { type: 'succeeded' },
+      },
+    )
+
+    const {
+      requested,
+      failed,
+      succeeded,
+    } = actionTypes
+
+    expect(requested).toBe('requested')
+    expect(failed).toBe('failed')
+    expect(succeeded).toBe('succeeded')
+  })
 })
