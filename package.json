@@ -1,6 +1,6 @@
 {
   "name": "redux-communication",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "MIT",
   "description": "Data fetching communication-state handler pluggable into redux.",
   "keywords": [
