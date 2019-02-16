@@ -12,8 +12,8 @@ export const isRequestAction = action => {
   )
 }
 
-export const isRequestFailedAction = action =>
-  action.meta.requestLifecycleType === REQUEST_FAILED
+export const isRequestFailedAction = ({ meta }) =>
+  meta && meta.requestLifecycleType === REQUEST_FAILED
 
-export const isRequestSucceededAction = action =>
-  action.meta.requestLifecycleType === REQUEST_SUCCEEDED
+export const isRequestSucceededAction = ({ meta }) =>
+  meta && meta.requestLifecycleType === REQUEST_SUCCEEDED
